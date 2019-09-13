@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Show_Data</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-success">
+	<form action="" method="post">
+		<div class="container">
+			
+			<h1 class="mt-5">Register Data</h1><br><br>
+			<div>
+    {% with messages=get_flashed_messages() %}
+    {% if messages %}
+
+    <ul>
+      {% for message in messages %}
+      <li><h3>{{message}}</h3></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+  </div>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Name</th>
+						<th scope="col">Surname</th>
+						<th scope="col">Email ID</th>
+						<th scope="col">Branch</th>
+						<th scope="col">Mobile</th>
+						<th scope="col" colspan="2">Action</th>
+					</tr>
+					{% for r in reg %}
+					<tr>
+						<td>{{r.id}}</td>
+						<td>{{r.name}}</td>
+						<td>{{r.surname}}</td>
+						<td>{{r.email}}</td>
+						<td>{{r.branch}}</td>
+						<td>{{r.mobile}}</td>
+						<th><a href="{{url_for('editData',register_id=r.id)}}">Edit</a></th>
+						<th><a href="{{url_for('deleteData',register_id=r.id)}}">Delete</a></th>
+					</tr>
+					{% endfor %}
+				</thead>
+			</table>
+		</div>
+		<div class="container">
+			<center><button type="button" class="btn btn-success"><a href="{{url_for('addData')}}"><font color="white">Add New Data</font></a></button>
+		
+			{% if current_user.is_authenticated %}
+
+		<button type="button" class="btn btn-success"><a href="{{ url_for('index')}}"><font color="white">Back</font></a></button></center>
+		{% else %}
+		<!--<a href="{{url_for('login')}}">Login</a>-->
+		{% endif %}	
+		</div>
+		
+	</form>
+
+</body>
+</html>
